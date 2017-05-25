@@ -25,7 +25,7 @@ public class SimpleMqttClient {
         myClient.setCallback(callbackImpl);
         myClient.connect();
 
-        System.out.println("subscriber(): Connected to " + brokerUrl);
+        System.out.println("subscriber(): Connected to " + brokerUrl + " topic " + topic);
 
         int subQoS = 0;
         myClient.subscribe(topic, subQoS);
