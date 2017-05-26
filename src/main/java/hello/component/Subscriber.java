@@ -5,7 +5,7 @@
  */
 package hello.component;
 
-import hello.component.mqtt.SimpleMqttClient;
+import hello.component.mqtt.MqttSubscriberClient;
 import hello.service.WebSocketService;
 import javax.annotation.PostConstruct;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -22,16 +22,27 @@ public class Subscriber {
     @Autowired
     WebSocketService webSocketService;
 
+    MqttSubscriberClient client;
+
     @PostConstruct
     public void init() {
-        System.out.println("Init Subscriber()...");
-        SimpleMqttClient client = new SimpleMqttClient("tcp://localhost:1883", "test/#");
+        connect();
+    }
+
+    public int connect() {
+        System.out.println("Init Subscriber...");
+        client = new MqttSubscriberClient("tcp://localhost:1883", "test/#");
 
         try {
-            client.runClient(webSocketService);
+            return client.connect(webSocketService);
         } catch (MqttException ex) {
             System.out.println("Error with client " + ex.toString());
+            return -1;
         }
+    }
+
+    public int disconnect() {
+        return client.disconnect();
     }
 
 }

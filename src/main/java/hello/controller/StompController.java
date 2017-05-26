@@ -3,7 +3,7 @@ package hello.controller;
 import com.google.gson.Gson;
 import hello.bean.HelloMessage;
 import hello.bean.Message;
-import hello.component.mqtt.MqttPublishSample;
+import hello.component.mqtt.MqttPublishClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class StompController {
 
-    MqttPublishSample publishSample;
+    MqttPublishClient publishSample;
 
     @Autowired
-    public StompController(MqttPublishSample publishSample) {
+    public StompController(MqttPublishClient publishSample) {
         this.publishSample = publishSample;
     }
 

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
  *
  * @author david https://eclipse.org/paho/clients/java/ java -cp
  * target/client-1.0-SNAPSHOT.jar:org.eclipse.paho.client.mqttv3-1.0.2.jar:.
- * it.david.mqtt.client.MqttPublishSample test aaa
+ * it.david.mqtt.client.MqttPublishClient test aaa
  */
 @Component
-public class MqttPublishSample {
+public class MqttPublishClient {
 
     int qos = 2;
     String broker = "tcp://localhost:1883";

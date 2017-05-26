@@ -8,19 +8,19 @@ import org.eclipse.paho.client.mqttv3.*;
  *
  * @author david https://gist.github.com/m2mIO-gister/5275324
  */
-public class SimpleMqttClient {
+public class MqttSubscriberClient {
 
     private final String brokerUrl;
     private final String topic;
 
     MqttClient myClient;
 
-    public SimpleMqttClient(String brokerUrl, String topic) {
+    public MqttSubscriberClient(String brokerUrl, String topic) {
         this.brokerUrl = brokerUrl;
         this.topic = topic;
     }
 
-    public void runClient(WebSocketService webSocketService) throws MqttException {
+    public int connect(WebSocketService webSocketService) throws MqttException {
         try {
             Date date = new Date();
             myClient = new MqttClient(brokerUrl, "webapp_" + date.getTime());
@@ -29,14 +29,28 @@ public class SimpleMqttClient {
             myClient.setCallback(callbackImpl);
             myClient.connect();
 
-            System.out.println("runClient(): Connected to " + brokerUrl + " topic " + topic);
-
             int subQoS = 0;
             myClient.subscribe(topic, subQoS);
+
+            System.out.println("Subscriber connected to " + brokerUrl + " topic " + topic);
+            return 1;
         } catch (Exception e) {
             System.out.println("Error in runClient()...");
             e.printStackTrace();
             myClient.disconnect();
+            return -1;
         }
+    }
+
+    public int disconnect() {
+        try {
+            myClient.disconnect();
+            System.out.println("Subscriber disconnected...");
+        } catch (Exception e) {
+            System.out.println("Error on disconnect()...");
+            e.printStackTrace();
+            return -1;
+        }
+        return 1;
     }
 }

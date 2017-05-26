@@ -1,6 +1,8 @@
 package hello.controller;
 
-import hello.component.mqtt.MqttPublishSample;
+import hello.ApplicationContextHolder;
+import hello.component.Subscriber;
+import hello.component.mqtt.MqttPublishClient;
 import hello.service.WebSocketService;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    MqttPublishSample publishSample;
+    MqttPublishClient publishSample;
     WebSocketService webSocketService;
 
     @Autowired
-    public HelloController(MqttPublishSample publishSample, WebSocketService webSocketService) {
+    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService) {
         this.publishSample = publishSample;
         this.webSocketService = webSocketService;
     }
@@ -50,6 +52,26 @@ public class HelloController {
             System.out.println("Error on publish()" + topic + " - " + content);
         }
         return "publish(): Message sent!";
+    }
+
+    @RequestMapping("/connect")
+    public String connect() {
+        System.out.println("connect(): ");
+
+        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
+        int result = subscriber.connect();
+
+        return result == 1 ? "OK" : "KO";
+    }
+
+    @RequestMapping("/disconnect")
+    public String disconnect() {
+        System.out.println("disconnect(): ");
+
+        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
+        int result = subscriber.disconnect();
+
+        return result == 1 ? "OK" : "KO";
     }
 
 }
