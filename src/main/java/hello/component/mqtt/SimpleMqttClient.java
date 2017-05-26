@@ -1,5 +1,6 @@
 package hello.component.mqtt;
 
+import java.util.Date;
 import org.eclipse.paho.client.mqttv3.*;
 
 /**
@@ -19,17 +20,21 @@ public class SimpleMqttClient {
     }
 
     public void runClient() throws MqttException {
-        MqttCallbackImpl callbackImpl = new MqttCallbackImpl();
+        try {
+            Date date = new Date();
+            myClient = new MqttClient(brokerUrl, "webapp_" + date.getTime());
 
-        myClient = new MqttClient(brokerUrl, "webapp");
-        myClient.setCallback(callbackImpl);
-        myClient.connect();
+            MqttCallbackImpl callbackImpl = new MqttCallbackImpl();
+            myClient.setCallback(callbackImpl);
+            myClient.connect();
 
-        System.out.println("subscriber(): Connected to " + brokerUrl + " topic " + topic);
+            System.out.println("runClient(): Connected to " + brokerUrl + " topic " + topic);
 
-        int subQoS = 0;
-        myClient.subscribe(topic, subQoS);
-
-//        myClient.disconnect();
+            int subQoS = 0;
+            myClient.subscribe(topic, subQoS);
+        } catch (Exception e) {
+            System.out.println("Error in runClient()\n" + e);
+            myClient.disconnect();
+        }
     }
 }

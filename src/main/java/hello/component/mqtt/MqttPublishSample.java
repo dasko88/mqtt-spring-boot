@@ -26,7 +26,7 @@ public class MqttPublishSample {
         System.out.println("send(): Connecting to broker: " + broker);
         sampleClient.connect(connOpts);
         System.out.println("send(): Connected");
-        System.out.println("send(): Publishing message: " + content);
+        System.out.println("send(): Publishing message: " + content + " to topic: " + topic);
         MqttMessage message = new MqttMessage(content.getBytes());
         message.setQos(qos);
         sampleClient.publish(topic, message);
