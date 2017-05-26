@@ -1,6 +1,6 @@
 package hello.controller;
 
-import hello.bean.Greeting;
+import com.google.gson.Gson;
 import hello.bean.HelloMessage;
 import hello.bean.Message;
 import hello.component.mqtt.MqttPublishSample;
@@ -34,10 +34,12 @@ public class StompController {
      */
     @MessageMapping("/hello")
     @SendTo("/user/topic/greetings")
-    public Greeting index(HelloMessage message) throws Exception {
+    public String index(HelloMessage message) throws Exception {
         System.out.println("index()");
 //        Thread.sleep(1000); // simulated delay
-        return new Greeting("Hello, " + message.getName() + "!");
+        Message msg = new Message("from webapp", message.getName(), "");
+        Gson gson = new Gson();
+        return gson.toJson(msg);
     }
 
     /**
@@ -52,7 +54,8 @@ public class StompController {
         try {
             publishSample.send(message.getDestination(), message.getContent());
         } catch (MqttException ex) {
-            System.out.println("Error on publish()" + message.getContent());
+            System.out.println("Error on publish(): " + message);
+            ex.printStackTrace();
         }
     }
 

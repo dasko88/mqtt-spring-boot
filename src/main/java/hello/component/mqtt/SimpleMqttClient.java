@@ -1,5 +1,6 @@
 package hello.component.mqtt;
 
+import hello.service.WebSocketService;
 import java.util.Date;
 import org.eclipse.paho.client.mqttv3.*;
 
@@ -19,12 +20,12 @@ public class SimpleMqttClient {
         this.topic = topic;
     }
 
-    public void runClient() throws MqttException {
+    public void runClient(WebSocketService webSocketService) throws MqttException {
         try {
             Date date = new Date();
             myClient = new MqttClient(brokerUrl, "webapp_" + date.getTime());
 
-            MqttCallbackImpl callbackImpl = new MqttCallbackImpl();
+            MqttCallbackImpl callbackImpl = new MqttCallbackImpl(webSocketService);
             myClient.setCallback(callbackImpl);
             myClient.connect();
 
@@ -33,7 +34,8 @@ public class SimpleMqttClient {
             int subQoS = 0;
             myClient.subscribe(topic, subQoS);
         } catch (Exception e) {
-            System.out.println("Error in runClient()\n" + e);
+            System.out.println("Error in runClient()...");
+            e.printStackTrace();
             myClient.disconnect();
         }
     }

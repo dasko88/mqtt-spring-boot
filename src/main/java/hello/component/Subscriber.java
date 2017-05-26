@@ -6,7 +6,10 @@
 package hello.component;
 
 import hello.component.mqtt.SimpleMqttClient;
+import hello.service.WebSocketService;
+import javax.annotation.PostConstruct;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,11 +19,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class Subscriber {
 
-    public Subscriber() {
+    @Autowired
+    WebSocketService webSocketService;
+
+    @PostConstruct
+    public void init() {
         System.out.println("Init Subscriber()...");
         SimpleMqttClient client = new SimpleMqttClient("tcp://localhost:1883", "test/#");
+
         try {
-            client.runClient();
+            client.runClient(webSocketService);
         } catch (MqttException ex) {
             System.out.println("Error with client " + ex.toString());
         }
