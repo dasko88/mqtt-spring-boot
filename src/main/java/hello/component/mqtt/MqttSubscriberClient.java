@@ -53,4 +53,17 @@ public class MqttSubscriberClient {
         }
         return 1;
     }
+
+    public Boolean isConnected() {
+        Boolean result;
+        try {
+            result = myClient.isConnected();
+            System.out.println("Subscriber connected " + result);
+        } catch (Exception e) {
+            System.out.println("Error on isConnected()...");
+            e.printStackTrace();
+            return null;
+        }
+        return result;
+    }
 }

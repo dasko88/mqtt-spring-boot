@@ -45,4 +45,8 @@ public class Subscriber {
         return client.disconnect();
     }
 
+    public Boolean isConnected() {
+        return client.isConnected();
+    }
+
 }

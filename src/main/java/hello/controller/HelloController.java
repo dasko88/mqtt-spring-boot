@@ -74,4 +74,14 @@ public class HelloController {
         return result == 1 ? "OK" : "KO";
     }
 
+    @RequestMapping("/isConnected")
+    public String isConnected() {
+        System.out.println("isConnected(): ");
+
+        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
+        Boolean result = subscriber.isConnected();
+
+        return result ? "OK" : "KO";
+    }
+
 }
