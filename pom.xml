@@ -8,6 +8,7 @@
     <version>0.1.0</version>
     <packaging>jar</packaging>
     <!--<packaging>war</packaging>-->
+    <name>mqtt-spring-boot</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -49,11 +50,6 @@
         </dependency>
     </dependencies>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-
     <build>
         <plugins>
             <plugin>
@@ -62,5 +58,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>mqtt-spring-boot</name>
 </project>
