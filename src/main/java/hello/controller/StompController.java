@@ -2,9 +2,8 @@ package hello.controller;
 
 import com.google.gson.Gson;
 import hello.bean.HelloMessage;
-import hello.bean.Message;
+import hello.bean.MqttMessage;
 import hello.component.mqtt.MqttPublishClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -37,7 +36,7 @@ public class StompController {
     public String index(HelloMessage message) throws Exception {
         System.out.println("index()");
 //        Thread.sleep(1000); // simulated delay
-        Message msg = new Message("from webapp", message.getName(), "");
+        MqttMessage msg = new MqttMessage("from webapp", message.getName(), "");
         Gson gson = new Gson();
         return gson.toJson(msg);
     }
@@ -49,14 +48,9 @@ public class StompController {
      * @throws Exception
      */
     @MessageMapping("/toMqtt")
-    public void toMqtt(Message message) throws Exception {
+    public void toMqtt(MqttMessage message) {
         System.out.println("toMqtt(): " + message);
-        try {
-            publishSample.send(message.getDestination(), message.getContent());
-        } catch (MqttException ex) {
-            System.out.println("Error on publish(): " + message);
-            ex.printStackTrace();
-        }
+        publishSample.send(message.getDestination(), message.getContent());
     }
 
 }

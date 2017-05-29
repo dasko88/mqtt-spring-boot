@@ -1,6 +1,6 @@
 package hello.service;
 
-import hello.bean.Message;
+import hello.bean.MqttMessage;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class WebSocketService {
         Map<String, Object> map = new HashMap<>();
         map.put(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON);
 
-        Message msg = new Message(topic, content, "http-request");
+        MqttMessage msg = new MqttMessage(topic, content, "http-request");
 
         this.messagingTemplate.convertAndSend(msg.getDestination(), msg);
     }

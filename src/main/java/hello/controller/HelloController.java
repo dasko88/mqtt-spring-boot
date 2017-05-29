@@ -1,9 +1,7 @@
 package hello.controller;
 
-import hello.component.Subscriber;
 import hello.component.mqtt.MqttPublishClient;
 import hello.service.WebSocketService;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +12,11 @@ public class HelloController {
 
     MqttPublishClient publishSample;
     WebSocketService webSocketService;
-    Subscriber subscriber;
 
     @Autowired
-    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService, Subscriber subscriber) {
+    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService) {
         this.publishSample = publishSample;
         this.webSocketService = webSocketService;
-        this.subscriber = subscriber;
     }
 
     /**
@@ -47,11 +43,9 @@ public class HelloController {
     @RequestMapping("/publishToMQTT")
     public String publish(@RequestParam("topic") String topic, @RequestParam("content") String content) {
         System.out.println("publish(): " + topic + " - " + content);
-        try {
-            publishSample.send(topic, content);
-        } catch (MqttException ex) {
-            System.out.println("Error on publish()" + topic + " - " + content);
-        }
+
+        publishSample.send(topic, content);
+
         return "publish(): Message sent!";
     }
 
@@ -59,7 +53,8 @@ public class HelloController {
     public String connect() {
         System.out.println("connect(): ");
 
-        int result = subscriber.connect();
+//        int result = subscriber.connect();
+        int result = 1;
 
         return result == 1 ? "OK" : "KO";
     }
@@ -68,7 +63,8 @@ public class HelloController {
     public String disconnect() {
         System.out.println("disconnect(): ");
 
-        int result = subscriber.disconnect();
+//        int result = subscriber.disconnect();
+        int result = 1;
 
         return result == 1 ? "OK" : "KO";
     }
@@ -77,7 +73,8 @@ public class HelloController {
     public String isConnected() {
         System.out.println("isConnected(): ");
 
-        Boolean result = subscriber.isConnected();
+//        Boolean result = subscriber.isConnected();
+        boolean result = true;
 
         return result ? "OK" : "KO";
     }

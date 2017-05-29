@@ -17,21 +17,24 @@ public class MqttPublishClient {
     String broker = "tcp://localhost:1883";
     String clientId = "JavaSample";
 
-    public void send(String topic, String content) throws MqttException {
+    public void send(String topic, String content) {
         MemoryPersistence persistence = new MemoryPersistence();
+        MqttClient sampleClient = null;
 
-        MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
-        MqttConnectOptions connOpts = new MqttConnectOptions();
-        connOpts.setCleanSession(true);
-        System.out.println("send(): Connecting to broker: " + broker);
-        sampleClient.connect(connOpts);
-        System.out.println("send(): Connected");
-        System.out.println("send(): Publishing message: " + content + " to topic: " + topic);
-        MqttMessage message = new MqttMessage(content.getBytes());
-        message.setQos(qos);
-        sampleClient.publish(topic, message);
-        System.out.println("send(): Message published");
-        sampleClient.disconnect();
-        System.out.println("send(): Disconnected");
+        try {
+            sampleClient = new MqttClient(broker, clientId, persistence);
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+
+            sampleClient.connect(connOpts);
+            System.out.println("send(): Publishing message: " + content + " to topic: " + topic);
+            MqttMessage message = new MqttMessage(content.getBytes());
+            message.setQos(qos);
+
+            sampleClient.publish(topic, message);
+            sampleClient.disconnect();
+        } catch (MqttException e) {
+            System.out.println("Error on send with MqttClient...");
+        }
     }
 }

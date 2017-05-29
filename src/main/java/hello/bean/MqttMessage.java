@@ -6,16 +6,16 @@ import java.io.Serializable;
  *
  * @author David
  */
-public class Message implements Serializable {
+public class MqttMessage implements Serializable {
 
     private String destination;
     private String content;
     private String user;
 
-    public Message() {
+    public MqttMessage() {
     }
 
-    public Message(String destination, String content, String user) {
+    public MqttMessage(String destination, String content, String user) {
         this.destination = destination;
         this.content = content;
         this.user = user;
