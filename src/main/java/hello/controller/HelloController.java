@@ -1,6 +1,5 @@
 package hello.controller;
 
-import hello.ApplicationContextHolder;
 import hello.component.Subscriber;
 import hello.component.mqtt.MqttPublishClient;
 import hello.service.WebSocketService;
@@ -15,11 +14,13 @@ public class HelloController {
 
     MqttPublishClient publishSample;
     WebSocketService webSocketService;
+    Subscriber subscriber;
 
     @Autowired
-    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService) {
+    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService, Subscriber subscriber) {
         this.publishSample = publishSample;
         this.webSocketService = webSocketService;
+        this.subscriber = subscriber;
     }
 
     /**
@@ -58,7 +59,6 @@ public class HelloController {
     public String connect() {
         System.out.println("connect(): ");
 
-        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
         int result = subscriber.connect();
 
         return result == 1 ? "OK" : "KO";
@@ -68,7 +68,6 @@ public class HelloController {
     public String disconnect() {
         System.out.println("disconnect(): ");
 
-        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
         int result = subscriber.disconnect();
 
         return result == 1 ? "OK" : "KO";
@@ -78,7 +77,6 @@ public class HelloController {
     public String isConnected() {
         System.out.println("isConnected(): ");
 
-        Subscriber subscriber = ApplicationContextHolder.getContext().getBean(Subscriber.class);
         Boolean result = subscriber.isConnected();
 
         return result ? "OK" : "KO";
