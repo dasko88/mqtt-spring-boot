@@ -49,6 +49,7 @@ public class MqttConfiguration {
                 mqttClientFactory(), "test/#");
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
+        //http://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels
         adapter.setQos(1);
         return adapter;
     }

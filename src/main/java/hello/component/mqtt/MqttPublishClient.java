@@ -13,7 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MqttPublishClient {
 
+    //http://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels
     int qos = 2;
+    // qos = 0 -> il msg viene inviato al più una volta. Fire and forget.
+    // qos = 1 -> il msg viene inviato almeno una volta. Il sender manda una prima volta il msg e rimane in ascolto di un msg di conferma PUBACK. Se non arriva, dopo un certo tempo re-invia il msg
+    // qos = 2 -> il msg viene inviato esattamente una volta. 
+    // The QoS level for publishing client to broker is depending on the QoS level the client sets for the particular message. When the broker transfers a message to a subscribing client it uses the QoS of the subscription made by the client earlier. 
     String broker = "tcp://localhost:1883";
     String clientId = "JavaSample";
 
