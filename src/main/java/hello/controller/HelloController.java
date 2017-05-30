@@ -1,6 +1,7 @@
 package hello.controller;
 
 import hello.component.mqtt.MqttPublishClient;
+import hello.model.mapper.UserMapper;
 import hello.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+    @Autowired
     MqttPublishClient publishSample;
+
+    @Autowired
     WebSocketService webSocketService;
 
     @Autowired
-    public HelloController(MqttPublishClient publishSample, WebSocketService webSocketService) {
-        this.publishSample = publishSample;
-        this.webSocketService = webSocketService;
-    }
+    UserMapper userMapper;
 
     /**
      * Invia un messaggio via webSocket
@@ -51,7 +52,7 @@ public class HelloController {
 
     @RequestMapping("/connect")
     public String connect() {
-        System.out.println("connect(): ");
+        System.out.println("connect(): " + userMapper.get(67).getEmail());
 
 //        int result = subscriber.connect();
         int result = 1;

@@ -1,4 +1,4 @@
-package hello;
+package hello.configuration;
 
 import hello.handler.WebSocketHandler;
 import hello.transformer.MessageTransformer;
