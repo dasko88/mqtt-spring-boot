@@ -4,7 +4,9 @@ import hello.component.mqtt.MqttPublishClient;
 import hello.model.mapper.UserMapper;
 import hello.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,9 +52,9 @@ public class HelloController {
         return "publish(): Message sent!";
     }
 
-    @RequestMapping("/connect")
-    public String connect() {
-        System.out.println("connect(): " + userMapper.get(67).getEmail());
+    @RequestMapping(value = "/connect/{id}", method = RequestMethod.GET, produces = "application/json")
+    public String connect(@PathVariable Integer id) {
+        System.out.println("connect(): " + userMapper.get(id).getEmail());
 
 //        int result = subscriber.connect();
         int result = 1;
