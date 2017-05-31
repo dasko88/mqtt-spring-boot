@@ -29,7 +29,7 @@ public class HelloController {
      * @param content
      * @return
      */
-    @RequestMapping("/sendToSTOMP")
+    @RequestMapping(value = "/sendToSTOMP", method = RequestMethod.GET)
     public String sendMessage(@RequestParam("topic") String topic, @RequestParam("content") String content) {
         System.out.println("sendMessage(): " + topic + " - " + content);
         webSocketService.sendMessage(topic, content);
@@ -43,7 +43,7 @@ public class HelloController {
      * @param content
      * @return
      */
-    @RequestMapping("/publishToMQTT")
+    @RequestMapping(value = "/publishToMQTT", method = RequestMethod.GET)
     public String publish(@RequestParam("topic") String topic, @RequestParam("content") String content) {
         System.out.println("publish(): " + topic + " - " + content);
 
@@ -62,7 +62,7 @@ public class HelloController {
         return result == 1 ? "OK" : "KO";
     }
 
-    @RequestMapping("/disconnect")
+    @RequestMapping(value = "/disconnect", method = RequestMethod.GET)
     public String disconnect() {
         System.out.println("disconnect(): ");
 
@@ -72,7 +72,7 @@ public class HelloController {
         return result == 1 ? "OK" : "KO";
     }
 
-    @RequestMapping("/isConnected")
+    @RequestMapping(value = "/isConnected", method = RequestMethod.GET)
     public String isConnected() {
         System.out.println("isConnected(): ");
 
