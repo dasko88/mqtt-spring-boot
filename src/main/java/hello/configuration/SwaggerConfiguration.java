@@ -23,18 +23,19 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("hello.controller"))
                 //                .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "My REST API",
+                "MQTT REST API",
                 "Some custom description of API.",
                 "API TOS",
                 "Terms of service",
-                "myeaddress@company.com",
-                "License of API",
-                "API license URL");
+                "Dotcom s.r.l.",
+                "",
+                "");
         return apiInfo;
     }
 }
