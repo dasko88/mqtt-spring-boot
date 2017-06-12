@@ -12,4 +12,27 @@
                 <skipTests>true</skipTests>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-clean install dev</actionName>
+            <displayName>clean install dev</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                
+            </goals>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-clean install test</actionName>
+            <displayName>clean install test</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <env>test</env>
+            </properties>
+        </action>
     </actions>

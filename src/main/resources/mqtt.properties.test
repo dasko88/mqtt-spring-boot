@@ -1,0 +1,10 @@
+malvestio.scout.url = malvestio.dotcom.ts.it
+malvestio.scout.port = 1883
+malvestio.scout.username = malvestio
+malvestio.scout.password = Ill3tt0M14ll3tt4
+malvestio.scout.qos = 0
+malvestio.scout.pub.clientId = scout-pub-test
+malvestio.scout.use.credential = true
+
+malvestio.scout.sub.clientId = scout-sub-test
+malvestio.scout.sub.topic = malvestio/bed/#

@@ -1,0 +1,4 @@
+malvestio.scout.database.url = 
+malvestio.scout.database.driver = org.postgresql.Driver
+malvestio.scout.database.username = 
+malvestio.scout.database.password = 

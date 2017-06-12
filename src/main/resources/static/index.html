@@ -2,12 +2,12 @@
 <html>
     <head>
         <title>Hello MQTT</title>
-        <link href="/mqtt-spring-boot/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/mqtt-spring-boot/main.css" rel="stylesheet">
-        <script src="/mqtt-spring-boot/webjars/jquery/jquery.min.js"></script>
-        <script src="/mqtt-spring-boot/webjars/sockjs-client/sockjs.min.js"></script>
-        <script src="/mqtt-spring-boot/webjars/stomp-websocket/stomp.min.js"></script>
-        <script src="/mqtt-spring-boot/app.js"></script>
+        <link href="/mqtt-console/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/mqtt-console/main.css" rel="stylesheet">
+        <script src="/mqtt-console/webjars/jquery/jquery.min.js"></script>
+        <script src="/mqtt-console/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/mqtt-console/webjars/stomp-websocket/stomp.min.js"></script>
+        <script src="/mqtt-console/app.js"></script>
     </head>
     <body>
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
@@ -48,11 +48,11 @@
                                 <p>Send via MQTT</p>
                                 <div class="form-group">
                                     <label for="topic">Topic</label>
-                                    <input type="text" id="destination" class="form-control" value="test/bed/1">
+                                    <input type="text" id="destination" class="form-control" value="malvestio/bed/1">
                                 </div>
                                 <div class="form-group">
                                     <label for="content">Content:</label>
-                                    <input type="text" id="content" class="form-control" placeholder="...">
+                                    <input type="text" id="content" class="form-control" placeholder="">
                                 </div>
                                 <button id="send-content" class="btn btn-default" type="submit">Send</button>
                             </form>
@@ -66,11 +66,12 @@
                     <div class="panel-body">
                         <div class="col-md-12">
                             <table id="conversation" class="table table-striped">
-                                <p>Messages for test/#</p>
+                                <p>Messages read on topic "malvestio/bed/#":</p>
                                 <thead>
                                     <tr>
-                                        <td><b>Topic</b></td>                                   </td>
-                                        <td><b>Content</b></td>                                       </td>
+                                        <td class="col-md-3"><b>Date</b></td>                                   </td>
+                                        <td class="col-md-2"><b>Topic</b></td>                                   </td>
+                                        <td class="col-md-7"><b>Content</b></td>                                       </td>
                                     </tr>
                                 </thead>
                                 <tbody id="greetings">

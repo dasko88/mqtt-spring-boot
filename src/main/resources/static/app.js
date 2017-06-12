@@ -12,7 +12,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/mqtt-spring-boot/gs-guide-websocket');
+    var socket = new SockJS('/mqtt-console/mqqt-console-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
@@ -41,7 +41,7 @@ function sendContent() {
 
 function showGreeting(destination, content) {
     var objJSON = JSON.parse(content);
-    $("#greetings").append("<tr><td>" + objJSON.destination + "</td><td>" + objJSON.content + "</td></tr>");
+    $("#greetings").append("<tr><td class='col-md-3'>" + objJSON.now + "</td><td class='col-md-2'>" + objJSON.destination + "</td><td class='col-md-7'>" + objJSON.content + "</td></tr>");
 }
 
 $(function () {
